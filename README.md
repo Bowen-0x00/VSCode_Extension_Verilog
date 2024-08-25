@@ -7,6 +7,8 @@ Added 3 commands:
 
 
 Modified testbench template.
+- Add vcd dump.
+- Add comment after signals.
 
 ![](images/instance.gif)
 ![](images/testbench.gif)
