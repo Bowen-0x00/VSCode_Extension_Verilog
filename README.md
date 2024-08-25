@@ -1,3 +1,16 @@
+# Modified
+
+Added 3 commands:
+1. Copy Instance to Clipboard
+2. Copy Testbench to Clipboard
+3. Create Instance by Selecting a File
+
+
+Modified testbench template.
+
+![](images/instance.gif)
+![](images/testbench.gif)
+![](images/instance%20by%20selecting.gif)
 # verilog-testbench-instance README
 
 This extension "verilog-testbench-instance" can be used to enhance verilog programming capability. 

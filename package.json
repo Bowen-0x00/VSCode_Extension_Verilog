@@ -2,18 +2,18 @@
     "name": "verilog-testbench-instance",
     "displayName": "Verilog_Testbench",
     "description": "verilog-testbench-instance",
-    "version": "0.0.5",
-    "publisher": "Truecrab",
+    "version": "0.0.5-1",
+    "publisher": "Truecrab-ymjr",
     "engines": {
-        "vscode": "^1.23.0"
+        "vscode": "^1.92.0"
     },
     "categories": [
         "Other"
     ],
-    "activationEvents": [
-        "onCommand:extension.instance",
-        "onCommand:extension.testbench"
-    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Bowen-0x00/VSCode_Extension_Verilog.git"
+    },
     "main": "./out/extension",
     "contributes": {
         "commands": [
@@ -24,7 +24,20 @@
             {
                 "command": "extension.testbench",
                 "title": "Testbench"
+            },
+            {
+                "command": "extension.instance_clipboard",
+                "title": "Instance to Clipboard"
+            },
+            {
+                "command": "extension.testbench_clipboard",
+                "title": "Testbench to Clipboard"
+            },
+            {
+                "command": "extension.select_and_instance_clipboard",
+                "title": "Instance by selecting a file"
             }
+            
         ]
     },
     "icon": "verilog.png",
@@ -41,10 +54,10 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^18.x.x",
+        "@types/vscode": "^1.92.0",
+        "eslint": "^8.36.0",
+        "typescript": "^4.x.x"
     }
 }

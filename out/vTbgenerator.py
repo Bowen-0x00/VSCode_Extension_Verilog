@@ -178,20 +178,30 @@ def writeTestBench(input_file):
 
     # write testbench
     timescale = '`timescale  1ns / 1ps\n'
-    print("//~ `New testbench")
-    print(timescale)
-    print("module tb_%s;\n" % name)
+
+    result = ''
+    result += timescale
+    result += '`ifndef MAKE\n'
+    result +=  f'`include "{name}.v"\n'
+    result += '`endif\n\n'
+    result += f"module tb_{name};\n"
 
     # module_parameter_port_list
     if(paraDec!=''):
-        print("// %s Parameters\n%s\n" % (name, paraDec))
+        result += f"// {name} Parameters\n{paraDec}\n"
 
     # list_of_port_declarations
-    print("// %s Inputs\n%s\n"  % (name, input ))
-    print("// %s Outputs\n%s\n" % (name, output))
+    result += f"// {name} Inputs\n{input}\n"
+    result += f"// {name} Outputs\n{output}\n"
     if(inout!=''):
-        print("// %s Bidirs\n%s\n"  % (name, inout ))
+        result += f"// {name} Bidirs\n{inout}\n"
 
+    result += f'''
+initial begin
+    $dumpfile("tb_{name}.vcd");
+    $dumpvars(0, tb_{name});
+end
+'''
     # print clock
     clk = '''
 initial
@@ -201,13 +211,14 @@ end'''
     rst = '''
 initial
 begin
+    clk <= 0;
     #(PERIOD*2) rst_n  =  1;
 end
-'''
-    print("%s\n%s" % (clk,rst))
+'''#ymjr
+    result += f"{clk}\n{rst}"
 
     # UUT
-    print("%s %s u_%s (\n%s\n);" %(name,paraDef,name,portList))
+    result += f"{name} {paraDef} u_{name} (\n{portList}\n);"
 
     # print operation
     operation = '''
@@ -217,8 +228,9 @@ begin
     $finish;
 end
 '''
-    print(operation)
-    print("endmodule")
+    result += operation
+    result += f"endmodule"
+    print(result)
 
 if __name__ == '__main__':
     writeTestBench(sys.argv[1])
