@@ -76,7 +76,17 @@ def portDeclare(inText ,portArr) :
     for ls in pList:
         if len(ls) >=2  :
             t = t+ portDic(ls[-2:])
-    return t
+    t_fixed = []
+    for index, t_ in enumerate(t):
+        t_new = list(t_)
+        ls = pList[index]
+        t_new.append(portArr)
+        for i in range(1, len(ls)):
+           t_new.append(ls[i])
+        t_new[-2:] = [t_new[1],t_new[0]]
+
+        t_fixed.append(t_new)
+    return t_fixed
 
 def portDic(port) :
     """delet as : input a =c &d;
@@ -100,14 +110,21 @@ def formatPort(AllPortList,isPortRange =1) :
         l3 = max(24, l1)
 
         strList = []
-        for pl in AllPortList :
+        AllPortList = [i for i in AllPortList if i != []]
+        for i, pl in enumerate(AllPortList) :
             if pl  != [] :
-                str = ',\n'.join( [' '*4+'.'+ i[0].ljust(l3)
-                                  + '( '+ (i[0].ljust(l1 )) + ' )' for i in pl ] )
-                strList = strList + [ str ]
+                port_info = ''
+                for index, p in enumerate(pl):
+                    port_info += f"{' '*4}.{p[0].ljust(l3)}({p[0].ljust(l1 )}){'' if index==len(pl) - 1 and  i == len(AllPortList) - 1 else ','}  //{' '.join(p[2:]) }\n"
+                strList.append(port_info)
 
-        str = ',\n\n'.join(strList)
-
+        str = '\n\n'.join(strList)
+    # def remove_last_comma(s):
+    #     index = s.rfind(',')
+    #     if index == -1:
+    #         return s  # 如果没有找到逗号，返回原字符串
+    #     return s[:index] + s[index + 1:]
+    # str = remove_last_comma(str)
     return str
 
 def formatDeclare(PortList,portArr, initial = "" ):

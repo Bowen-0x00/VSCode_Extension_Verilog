@@ -18,7 +18,7 @@ const path = require("path");
 // Function to run the Python script and copy output to clipboard
 function runPythonScript(scriptPath, filePath) {
     return new Promise((resolve, reject) => {
-        let command = `python ${scriptPath} ${filePath}`;
+        let command = `python "${scriptPath}" "${filePath}"`;
         (0, child_process_1.exec)(command, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error: ${error.message}`);

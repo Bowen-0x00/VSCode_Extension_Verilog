@@ -8,7 +8,7 @@ import * as path from 'path';
 // Function to run the Python script and copy output to clipboard
 function runPythonScript(scriptPath: string, filePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        let command = `python ${scriptPath} ${filePath}`;
+        let command = `python "${scriptPath}" "${filePath}"`;
         
         exec(command, (error, stdout, stderr) => {
             if (error) {
